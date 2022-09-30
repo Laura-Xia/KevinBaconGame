@@ -36,7 +36,7 @@ public class Wordle {
 			}
 		}
 	}
-	//refer to the wordle word list to check if the answer is valid
+	//refer to the wordle word list to check if the word is valid
 	public boolean valid(String w)throws Exception{    
         FileReader fr=new FileReader("wordle.txt");    
         BufferedReader br=new BufferedReader(fr);    
