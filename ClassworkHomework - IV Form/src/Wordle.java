@@ -53,7 +53,7 @@ public class Wordle {
         fr.close();    
         return false;
 	}    
-	//return string of user feedback and remove invalid letters
+	//return string of user feedback and remove invalid letters, w is the user input, ans is the target word
 	public String check(String w, String ans, String[] arr) {
 		String res = "";
 		for (int i = 0; i<5; i++) {
@@ -145,8 +145,9 @@ public class Wordle {
 			}
 			//progress if word inputed is valid
 			else {
+				guess = guess.toLowerCase();
 				//convert guess to lower case and input in game board
-				arr[index][1] = guess.toLowerCase();
+				arr[index][1] = guess;
 				//print out user feedback
 				arr[index+1][1] = r.check(guess, tar, arr[14]);
 				//display game board
