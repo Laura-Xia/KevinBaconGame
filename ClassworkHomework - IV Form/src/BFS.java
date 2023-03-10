@@ -148,47 +148,21 @@ public class BFS{
         Nodes s = name_node.get(start);
         Nodes prev = s;
         Queue<Nodes> queue = new LinkedList<Nodes>();
-//        queue.add(s);
+        queue.add(s);
         boolean yay = false;
-//        while(!queue.isEmpty()){
-//            Nodes currNode = queue.poll();
-//            currNode.visit();
-//            prev = currNode;
-//            if (currNode.getName().equals(end)){
-//                yay = true;
-//                break;
-//            }
-//            for (int i = 0; i < currNode.edgeNum(); i++){
-//            	Nodes o = name_node.get(currNode.getEdges().get(i).end);
-//                if (!o.getVisited() && !o.hasPrev()){
-//                    o.setPrev(prev);
-//                    queue.add(o);
-//                }
-//            }
-//        }
-        for(int i = 0; i <= name_node.get(start).getEdges().size() - 1; i++){
-            queue.add(name_node.get(name_node.get(start).getEdges().get(i).end));
-            name_node.get(name_node.get(start).getEdges().get(i).end).setPrev(prev);
-            name_node.get(start).visit();
-        }
-
-//        boolean found = false;
-        System.out.println(name_node.get(start).getEdges().size());
-
         while(!queue.isEmpty()){
-            queue.peek().visit();
-            Nodes currVertex = queue.poll();
-            prev = currVertex;
-            System.out.println(currVertex.name);
-            System.out.println(end);
-            if (currVertex.name.equals(end)){
+            Nodes currNode = queue.poll();
+            currNode.visit();
+            prev = currNode;
+            if (currNode.getName().equals(end)){
                 yay = true;
                 break;
             }
-            for (int i = 0; i <= name_node.get(currVertex.name).getEdges().size() - 1; i++){
-                if (!name_node.get(name_node.get(currVertex.name).getEdges().get(i).end).visited && !name_node.get(name_node.get(currVertex.name).getEdges().get(i).end).hasPrev()){
-                	name_node.get(name_node.get(currVertex.name).getEdges().get(i).end).setPrev(prev);
-                    queue.add(name_node.get(name_node.get(currVertex.name).getEdges().get(i).end));
+            for (int i = 0; i < currNode.edgeNum(); i++){
+            	Nodes o = name_node.get(currNode.getEdges().get(i).end);
+                if (!o.getVisited() && !o.hasPrev()){
+                    o.setPrev(prev);
+                    queue.add(o);
                 }
             }
         }
