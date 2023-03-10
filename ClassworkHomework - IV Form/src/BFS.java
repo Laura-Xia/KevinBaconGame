@@ -206,31 +206,74 @@ public class BFS{
             return "They're unrelated, how sad :(";
         }
     }
-//	public String BaconNum(HashMap<String, Nodes> name_node, String end) {
-//		if (name_node.get(end) == null){
-//            return "Who is this character, never heard of them :0";
-//        }
-//        String ans = "";
-//        Nodes s = name_node.get(start);
-//        Nodes prev = s;
-//        Queue<Nodes> queue = new LinkedList<Nodes>();
-//        queue.add(s);
-//        boolean yay = false;
-//        while(!queue.isEmpty()){
-//            Nodes currNode = queue.poll();
-//            currNode.visit();
-//            prev = currNode;
-//            if (currNode.getName().equals(end)){
-//                yay = true;
-//                break;
-//            }
-//            for (int i = 0; i < currNode.edgeNum(); i++){
-//            	Nodes o = name_node.get(currNode.getEdges().get(i).end);
-//                if (!o.getVisited() && !o.hasPrev()){
-//                    o.setPrev(prev);
-//                    queue.add(o);
-//                }
-//            }
-//        }
-//	}
+	public String Movie(HashMap<String, Nodes> name_node, String end) {
+		Edges m = name_node.get(end).getEdges().get(0);
+		return m.getMovie();
+	}
+	public String BaconNum(HashMap<String, Nodes> name_node, String end) {
+		if (name_node.get(end) == null){
+            return "Who is this character, never heard of them :0";
+        }
+        String ans = "";
+        String k  = "Kevin Bacon";
+        Nodes s = name_node.get(k);
+        Nodes prev = s;
+        Queue<Nodes> queue = new LinkedList<Nodes>();
+        queue.add(s);
+        boolean yay = false;
+        while(!queue.isEmpty()){
+            Nodes currNode = queue.poll();
+            currNode.visit();
+            prev = currNode;
+            if (currNode.getName().equals(end)){
+                yay = true;
+                break;
+            }
+            for (int i = 0; i < currNode.edgeNum(); i++){
+            	Nodes o = name_node.get(currNode.getEdges().get(i).end);
+                if (!o.getVisited() && !o.hasPrev()){
+                    o.setPrev(prev);
+                    queue.add(o);
+                }
+            }
+        }
+        if(yay) {
+        	int num = 0;
+            Stack<Nodes> backtrack = new Stack<Nodes>();
+            Queue<String> movies = new LinkedList<String>();
+            Nodes target = name_node.get(end);
+            backtrack.add(target);
+            while (!target.getName().equals(k)) {
+                target = target.getPrev();
+                backtrack.add(target);
+            }
+            Stack<Nodes> dup = backtrack;
+            Nodes first = s;
+            Nodes second = dup.pop();
+            while(dup.size() > 0){
+                for (int i = 0; i < first.edgeNum(); i++){
+                	Edges c = first.getEdges().get(i);
+                    if (c.getEnd().equals(second.getName())){
+                        movies.add(c.movie);
+                        break;
+                    }
+                }
+                first = second;
+                second = dup.pop();
+            }
+            for (int i = 0; i < first.edgeNum(); i++){
+            	Edges c = first.getEdges().get(i);
+                if (c.getEnd().equals(second.getName())){
+                    movies.add(c.movie);
+                }
+            }
+            while (backtrack.size() != 1){
+                num++;
+            }
+            return Integer.toString(num);
+        }
+        else{
+            return "Your actor is not cool enough to have a bacon number, sorryy";
+        }
+	}
 }

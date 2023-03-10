@@ -7,43 +7,50 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class Frame extends JFrame implements ActionListener {
-
     JTextField start;
     JLabel startLabel;
     JTextField end;
     JLabel endLabel;
     JTextArea output;
-    JLabel recommendedMovieLabel;
-    JTextField recommendedMovie;
+    JTextField actor;
+    JLabel actorLabel;
+    JTextArea output2;
+    JLabel movieLabel;
+    JTextField movie;
     JLabel outputlabel;
     JButton button;
+    String aStart;
+    String aEnd;
+    String aName;
+    static final Graph g = new Graph();
 
-    String actorStart;
+    BFS b = new BFS();
 
-    String actorEnd;
-
-    static final Graph graph = new Graph();
-
-    BFS bfs = new BFS();
-
-    HashMap<String, Nodes> nameToActor = graph.buildGraph();
+    HashMap<String, Nodes> name_node = g.buildGraph();
 
     Frame() throws IOException {
         this.setLayout(new FlowLayout());
         this.setTitle("Kevin Bacon Game");
         start = new JTextField();
         start.setPreferredSize(new Dimension(250, 40));
-        startLabel = new JLabel("Input Start Actor:");
+        startLabel = new JLabel("1st Actor:");
         end = new JTextField();
         end.setPreferredSize(new Dimension(250, 40));
-        endLabel = new JLabel("Input End Actor:");
+        endLabel = new JLabel("2nd Actor:");
         output = new JTextArea();
-        output.setPreferredSize(new Dimension(780, 200));
+        output.setPreferredSize(new Dimension(780, 70));
         output.setLineWrap(true);
-        outputlabel = new JLabel("Connection:");
-        recommendedMovie = new JTextField();
-        recommendedMovie.setPreferredSize(new Dimension(250, 40));
-        recommendedMovieLabel = new JLabel("Recommended Movie By This Actor:");
+        outputlabel = new JLabel("Relation:");
+        actor = new JTextField();
+        actor.setPreferredSize(new Dimension(250, 40));
+        actorLabel = new JLabel("Actor name:");
+        output2 = new JTextArea();
+        output2.setPreferredSize(new Dimension(780, 70));
+        output.setLineWrap(true);
+        outputlabel = new JLabel("Kevin Bacon Number:");
+        movie = new JTextField();
+        movie.setPreferredSize(new Dimension(250, 40));
+        movieLabel = new JLabel("This Actor was in:");
         button = new JButton("Submit");
         button.addActionListener(this);
         this.add(startLabel);
@@ -53,8 +60,8 @@ public class Frame extends JFrame implements ActionListener {
         this.add(button);
         this.add(outputlabel);
         this.add(output);
-        this.add(recommendedMovieLabel);
-        this.add(recommendedMovie);
+        this.add(movieLabel);
+        this.add(movie);
         this.setSize(800, 500);
         this.setVisible(true);
     }
@@ -62,14 +69,16 @@ public class Frame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==button){
-            for (String i : nameToActor.keySet()){
-                nameToActor.get(i).setPrev(null);
-                nameToActor.get(i).antiVisit();
+            for (String i : name_node.keySet()){
+            	name_node.get(i).setPrev(null);
+            	name_node.get(i).antiVisit();
             }
-            actorStart = start.getText();
-            actorEnd = end.getText();
-            output.setText(bfs.findPath(nameToActor, actorStart, actorEnd));
-//            recommendedMovie.setText(bfs.getMovie(nameToActor, actorStart, actorEnd));
+            aStart = start.getText();
+            aEnd = end.getText();
+            aName = actor.getText();
+            output.setText(b.findPath(name_node, aStart, aEnd));
+            output.setText(b.BaconNum(name_node, aName));
+            movie.setText(b.Movie(name_node, aName));
         }
     }
 }
