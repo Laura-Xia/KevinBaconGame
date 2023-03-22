@@ -81,6 +81,7 @@ class Graph {
         HashMap<String, Nodes> name_node = new HashMap<String, Nodes>();
         ArrayList<String> movieList = new ArrayList<String>();
         ArrayList<Nodes> actors = new ArrayList<Nodes>();
+        ArrayList<String> m_a = new ArrayList<String>();
         for (String line = actorsList.readLine(); line != null; line = actorsList.readLine()){
         	String[] tokens = line.split("~");
         	String code = tokens[0];
@@ -99,44 +100,50 @@ class Graph {
             movieList.add(name);
             movie.put(code, name);
         }
-        
-        String currMovie = "";
-        ArrayList<Nodes> currActors = new ArrayList<Nodes>();
-        ArrayList<Nodes> emp = new ArrayList<Nodes>();
+//        
         for (String line = movie_actors.readLine(); line != null; line = movie_actors.readLine()){
-        	String[] tokens = line.split("~");
-        	String movieCode = tokens[0];
-	        String actorCode = tokens[1];
-	        if(currMovie.equals("")) currMovie = movieCode;
-	        if(movieCode.equals(currMovie)) {
-	        	 if(currActors.size()!=0) {
-	        		 for (int i = 0; i < currActors.size(); i++) {
-		        		 Edges e1 = new Edges(actor.get(actorCode), currActors.get(i).getName(), movie.get(movieCode));
-		        		 Edges e2 = new Edges(currActors.get(i).getName(), actor.get(actorCode), movie.get(movieCode));
-		        		 code_node.get(actorCode).addEdge(e1);
-		        		 currActors.get(i).addEdge(e2);
-		        	 }
-	        		 currActors.add(code_node.get(actorCode));
-	        	 }
-	        	 else {
-	        		 currActors.add(code_node.get(actorCode));
-	        	 }
-	        }
-	        else {
-//	        	System.out.println(currActors.size());
-//	        	System.out.println(currMovie);
-//	        	System.out.println(movieCode);
-	        	
-//	        	System.out.println(num);
-	        	currActors = emp;
-	        	currMovie = movieCode;
-	        }
+        	m_a.add(line);
         }
-        actorsList.close();
-        moviesList.close();
-        movie_actors.close();
-        return name_node;
-    }
+        
+        String currMovie = movie.get(m_a.get(0).split("~")[0]);
+        int index = 0;
+
+        
+        for (int i = 0; i < m_a.size(); i++){
+        	String curr = movie.get(m_a.get(i).split("~")[0]);
+            if (!currMovie.equals(curr)){
+                for (int j = index; j < i; j++){
+                    for (int k = j + 1; k < i; k++){
+                    	String actor1_n = actor.get(m_a.get(j).split("~")[1]);
+                    	String actor2_n = actor.get(m_a.get(k).split("~")[1]);
+                        Edges e1 = new Edges(actor1_n, actor2_n, currMovie);
+                        Edges e2 = new Edges(actor2_n, actor1_n, currMovie);
+                        Nodes actor1 = name_node.get(actor1_n);
+                    	Nodes actor2 = name_node.get(actor2_n);
+                        actor1.addEdge(e1);
+                        actor2.addEdge(e2);
+                    }
+                }
+                index = i;
+                currMovie = curr;
+            }
+            else if (i == m_a.size() - 1){
+                for (int j = index; j <= i; j++){
+                    for (int k = j + 1; k <= i; k++){
+                    	String actor1_n = actor.get(m_a.get(j).split("~")[1]);
+                    	String actor2_n = actor.get(m_a.get(k).split("~")[1]);
+                        Edges e1 = new Edges(actor1_n, actor2_n, currMovie);
+                        Edges e2 = new Edges(actor2_n, actor1_n, currMovie);
+                        Nodes actor1 = name_node.get(actor1_n);
+                    	Nodes actor2 = name_node.get(actor2_n);
+                        actor1.addEdge(e1);
+                        actor2.addEdge(e2);
+                    }
+                }
+            }
+        }
+		return name_node;
+	}
 }
 
 public class BFS{
@@ -203,7 +210,7 @@ public class BFS{
             return ans;
         }
         else{
-            return "They're unrelated, how sad :(";
+            return "They're unrelated, how sad :((";
         }
     }
 	public String Movie(HashMap<String, Nodes> name_node, String end) {
