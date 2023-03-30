@@ -15,6 +15,7 @@ public class Frame extends JFrame implements ActionListener {
     JTextField actor;
     JLabel actorLabel;
     JTextArea output2;
+    JLabel outputlabel2;
     JLabel movieLabel;
     JTextField movie;
     JLabel outputlabel;
@@ -46,8 +47,8 @@ public class Frame extends JFrame implements ActionListener {
         actorLabel = new JLabel("Actor name:");
         output2 = new JTextArea();
         output2.setPreferredSize(new Dimension(780, 70));
-        output.setLineWrap(true);
-        outputlabel = new JLabel("Kevin Bacon Number:");
+        output2.setLineWrap(true);
+        outputlabel2 = new JLabel("Kevin Bacon Number:");
         movie = new JTextField();
         movie.setPreferredSize(new Dimension(250, 40));
         movieLabel = new JLabel("This Actor was in:");
@@ -59,8 +60,12 @@ public class Frame extends JFrame implements ActionListener {
         this.add(end);
         this.add(button);
         this.add(outputlabel);
+        this.add(output2);
+        this.add(outputlabel2);
         this.add(output);
         this.add(movieLabel);
+        this.add(actor);
+        this.add(actorLabel);
         this.add(movie);
         this.setSize(800, 500);
         this.setVisible(true);
@@ -77,7 +82,7 @@ public class Frame extends JFrame implements ActionListener {
             aEnd = end.getText();
             aName = actor.getText();
             output.setText(b.findPath(name_node, aStart, aEnd));
-            output.setText(b.BaconNum(name_node, aName));
+            output2.setText(b.BaconNum(name_node, aName));
             movie.setText(b.Movie(name_node, aName));
         }
     }
