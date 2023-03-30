@@ -208,7 +208,7 @@ public class BFS{
                 }
             }
             while (backtrack.size() != 1){
-                ans += backtrack.pop() + " -> ";
+                ans += backtrack.pop().getName() + " -> ";
                 ans += "(" + movies.poll() + ") ->";
             }
             ans += end;
