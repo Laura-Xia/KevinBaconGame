@@ -247,16 +247,18 @@ public class BFS{
             }
         }
         if(yay) {
-        	int num = 0;
+            int num = 0;
             Stack<Nodes> backtrack = new Stack<Nodes>();
+	    Stack<Nodes> dup = new Stack<Nodes>();
             Queue<String> movies = new LinkedList<String>();
             Nodes target = name_node.get(end);
             backtrack.add(target);
+	    dup.add(target);
             while (!target.getName().equals(k)) {
                 target = target.getPrev();
                 backtrack.add(target);
+		dup.add(target);
             }
-            Stack<Nodes> dup = backtrack;
             Nodes first = s;
             Nodes second = dup.pop();
             while(dup.size() > 0){
