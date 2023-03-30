@@ -20,6 +20,7 @@ public class Frame extends JFrame implements ActionListener {
     JTextField movie;
     JLabel outputlabel;
     JButton button;
+    JButton button2;
     String aStart;
     String aEnd;
     String aName;
@@ -54,11 +55,14 @@ public class Frame extends JFrame implements ActionListener {
         movieLabel = new JLabel("This Actor was in:");
         button = new JButton("Submit");
         button.addActionListener(this);
+        button2 = new JButton("Submit");
+        button2.addActionListener(this);
         this.add(startLabel);
         this.add(start);
         this.add(endLabel);
         this.add(end);
         this.add(button);
+        this.add(button2);
         this.add(outputlabel);
         this.add(output2);
         this.add(outputlabel2);
@@ -80,8 +84,14 @@ public class Frame extends JFrame implements ActionListener {
             }
             aStart = start.getText();
             aEnd = end.getText();
-            aName = actor.getText();
             output.setText(b.findPath(name_node, aStart, aEnd));
+        }
+        if(e.getSource()==button2){
+            for (String i : name_node.keySet()){
+            	name_node.get(i).setPrev(null);
+            	name_node.get(i).antiVisit();
+            }
+            aName = actor.getText();
             output2.setText(b.BaconNum(name_node, aName));
             movie.setText(b.Movie(name_node, aName));
         }
