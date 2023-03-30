@@ -43,34 +43,34 @@ public class Frame extends JFrame implements ActionListener {
         output.setPreferredSize(new Dimension(780, 70));
         output.setLineWrap(true);
         outputlabel = new JLabel("Relation:");
-        actor = new JTextField();
-        actor.setPreferredSize(new Dimension(250, 40));
-        actorLabel = new JLabel("Actor name:");
-        output2 = new JTextArea();
-        output2.setPreferredSize(new Dimension(780, 70));
-        output2.setLineWrap(true);
-        outputlabel2 = new JLabel("Kevin Bacon Number:");
-        movie = new JTextField();
-        movie.setPreferredSize(new Dimension(250, 40));
-        movieLabel = new JLabel("This Actor was in:");
+//         actor = new JTextField();
+//         actor.setPreferredSize(new Dimension(250, 40));
+//         actorLabel = new JLabel("Actor name:");
+//         output2 = new JTextArea();
+//         output2.setPreferredSize(new Dimension(780, 70));
+//         output2.setLineWrap(true);
+//         outputlabel2 = new JLabel("Kevin Bacon Number:");
+//         movie = new JTextField();
+//         movie.setPreferredSize(new Dimension(250, 40));
+//         movieLabel = new JLabel("This Actor was in:");
         button = new JButton("Submit");
         button.addActionListener(this);
-        button2 = new JButton("Submit");
-        button2.addActionListener(this);
+//         button2 = new JButton("Submit");
+//         button2.addActionListener(this);
         this.add(startLabel);
         this.add(start);
         this.add(endLabel);
         this.add(end);
         this.add(button);
-        this.add(button2);
+//         this.add(button2);
         this.add(outputlabel);
-        this.add(output2);
-        this.add(outputlabel2);
+//         this.add(output2);
+//         this.add(outputlabel2);
         this.add(output);
-        this.add(movieLabel);
-        this.add(actor);
-        this.add(actorLabel);
-        this.add(movie);
+//         this.add(movieLabel);
+//         this.add(actor);
+//         this.add(actorLabel);
+//         this.add(movie);
         this.setSize(800, 500);
         this.setVisible(true);
     }
@@ -86,14 +86,14 @@ public class Frame extends JFrame implements ActionListener {
             aEnd = end.getText();
             output.setText(b.findPath(name_node, aStart, aEnd));
         }
-        if(e.getSource()==button2){
-            for (String i : name_node.keySet()){
-            	name_node.get(i).setPrev(null);
-            	name_node.get(i).antiVisit();
-            }
-            aName = actor.getText();
-            output2.setText(b.BaconNum(name_node, aName));
-            movie.setText(b.Movie(name_node, aName));
-        }
+//         if(e.getSource()==button2){
+//             for (String i : name_node.keySet()){
+//             	name_node.get(i).setPrev(null);
+//             	name_node.get(i).antiVisit();
+//             }
+//             aName = actor.getText();
+//             output2.setText(b.BaconNum(name_node, aName));
+//             movie.setText(b.Movie(name_node, aName));
+//         }
     }
 }
