@@ -252,15 +252,15 @@ public class BFS{
         if(yay) {
             int num = 0;
             Stack<Nodes> backtrack = new Stack<Nodes>();
-	    Stack<Nodes> dup = new Stack<Nodes>();
+            Stack<Nodes> dup = new Stack<Nodes>();
             Queue<String> movies = new LinkedList<String>();
             Nodes target = name_node.get(end);
             backtrack.add(target);
-	    dup.add(target);
+            dup.add(target);
             while (!target.getName().equals(k)) {
                 target = target.getPrev();
                 backtrack.add(target);
-		dup.add(target);
+                dup.add(target);
             }
             Nodes first = s;
             Nodes second = dup.pop();
@@ -283,8 +283,10 @@ public class BFS{
             }
             while (backtrack.size() != 1){
                 num++;
+                backtrack.pop();
             }
-            return Integer.toString(num);
+            ans+=Integer.toString(num);
+            return ans;
         }
         else{
             return "Your actor is not cool enough to have a bacon number, sorryy";
