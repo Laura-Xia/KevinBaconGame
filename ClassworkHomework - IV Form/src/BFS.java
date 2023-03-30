@@ -81,6 +81,7 @@ class Graph {
         HashMap<String, Nodes> name_node = new HashMap<String, Nodes>();
         ArrayList<String> movieList = new ArrayList<String>();
         ArrayList<Nodes> actors = new ArrayList<Nodes>();
+	ArrayList<Edges> edges = new ArrayList<Edges>();
         ArrayList<String> m_a = new ArrayList<String>();
         for (String line = actorsList.readLine(); line != null; line = actorsList.readLine()){
         	String[] tokens = line.split("~");
@@ -122,6 +123,7 @@ class Graph {
                     	Nodes actor2 = name_node.get(actor2_n);
                         actor1.addEdge(e1);
                         actor2.addEdge(e2);
+			edges.add(e1);
                     }
                 }
                 index = i;
@@ -138,6 +140,7 @@ class Graph {
                     	Nodes actor2 = name_node.get(actor2_n);
                         actor1.addEdge(e1);
                         actor2.addEdge(e2);
+			edges.add(e1);
                     }
                 }
             }
