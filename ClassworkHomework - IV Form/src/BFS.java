@@ -115,10 +115,12 @@ class Graph {
             if (!currMovie.equals(curr)){
                 for (int j = index; j < i; j++){
                     for (int k = j + 1; k < i; k++){
+			String actor1_n = actor.get(m_a.get(j).split("~")[1]);
+			String actor2_n = actor.get(m_a.get(j).split("~")[1]);
                         Edges e1 = new Edges(actor1_n, actor2_n, currMovie);
                         Edges e2 = new Edges(actor2_n, actor1_n, currMovie);
-                        Nodes actor1 = code_node.get(m_a.get(j).split("~")[1]);
-                    	Nodes actor2 = code_node.get(m_a.get(k).split("~")[1]);
+                        Nodes actor1 = name_node.get(actor1_n);
+                    	Nodes actor2 = name_node.get(actor2_n);
                         actor1.addEdge(e1);
                         actor2.addEdge(e2);
 			edges.add(e1);
@@ -130,10 +132,12 @@ class Graph {
             else if (i == m_a.size() - 1){
                 for (int j = index; j <= i; j++){
                     for (int k = j + 1; k <= i; k++){
+                        String actor1_n = actor.get(m_a.get(j).split("~")[1]);
+			String actor2_n = actor.get(m_a.get(j).split("~")[1]);
                         Edges e1 = new Edges(actor1_n, actor2_n, currMovie);
                         Edges e2 = new Edges(actor2_n, actor1_n, currMovie);
-                        Nodes actor1 = code_node.get(m_a.get(j).split("~")[1]);
-                    	Nodes actor2 = code_node.get(m_a.get(k).split("~")[1]);
+                        Nodes actor1 = name_node.get(actor1_n);
+                    	Nodes actor2 = name_node.get(actor2_n);
                         actor1.addEdge(e1);
                         actor2.addEdge(e2);
 			edges.add(e1);
